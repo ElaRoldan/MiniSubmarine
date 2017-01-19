@@ -1,0 +1,42 @@
+<div class="container">
+  <h2>Welcome <%= current_user.name %></h2>
+</div>
+
+<h1>Your Score by Rounds</h1>
+
+<div class="centerTable">
+	<% if @rounds.count != 0 %>
+		<table class="hovertable">
+			<!-- ¿Qué va en esta parte para llevar la puntuación por round del jugador? -->
+			<tr>
+        <th>Round</th>
+        <th>Submarines Destroyed</th>
+        <th>Result</th>
+      </tr>
+            
+      <tr>
+      <% @rounds.each do |round| %>
+        <td><%= round.id %></td>
+        <td><%= round.score %></td>
+        <% if round.score == 0 %>
+          <td>Looser</td> 
+        <% elsif  round.score == 1 %>
+          <td>Almost!</td> 
+        <% elsif  round.score == 2 %>
+          <td>Winner!</td>
+        <% end %>     
+      </tr>
+      <% end %>
+    </table>
+    <h3>Games won: <%= @games_won.count %></h3>
+	<% else %>
+	  <h3>No rounds for this player!</h3>
+	<% end %>
+</div>
+
+<aside>
+  <h3></h3>
+  <form method="post" action="/new_game">
+    <input type="submit" value="Play Again">
+  </form>
+</aside>
